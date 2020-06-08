@@ -1,16 +1,45 @@
 buildscript {
+    /*
+     * ext
+     * - build.gradle에서 사용하는 전역변수 설정하는 키워드.
+     */
     ext {
         springBootVersion = '2.1.7.RELEASE'
     }
+
+    /*
+     * repositories
+     * - 각종 의존성(라이브러리)들을 받을 원격 저장소 지정.
+     * mavenCentral()
+     * - 기본적으로 mavenCentral 사용.
+     * - 직접 만든 라이브러리 업로드 어려움.
+     * -> jcenter()
+     *    - 최근에는 라이브러리 업로드 난이도 때문에 jcenter 도 많이 사용.
+     *    - jcenter 에 라이브러리를 업로드하면 mavenCentral 에도 자동 업로드.
+     */
     repositories {
         mavenCentral()
         jcenter()
     }
+
+    /*
+     * dependencies
+     * - 프로젝트 개발에 필요한 의존성들 선언하는 곳.
+     * - 특정 버전 명시하지 않고 ${springBootVersion} 과 같이 설정.
+     */
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
+/*
+ * 자바와 스프링부트 사용하기 위한 필수 플러그인 4가지
+ * 1. java
+ * 2. eclipse
+ * 3. org.springframework.boot
+ * 4. io.spring.dependency-management
+ *    - 스프링 부트의 의존성들을 관리해주는 필수 플러그인.
+ */
 apply plugin : 'java'
 apply plugin : 'eclipse'
 apply plugin : 'org.springframework.boot'
@@ -26,5 +55,8 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.h2database:h2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
